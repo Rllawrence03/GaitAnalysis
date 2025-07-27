@@ -1,40 +1,33 @@
 # GaitAnalysis
-Detect Gait events in walking data
 
-from pathlib import Path
+Detect gait events in walking data from the PhysioNet LTMM dataset.
 
-project_md = """
-# Gait Event Detection from NIH LTMM Dataset (PhysioNet)
+## Dataset Overview
 
-## 🧪 Dataset Overview
+The [Long-Term Movement Monitoring (LTMM)](https://physionet.org/content/ltmm/1.0.0/) database contains 3-axis accelerometer recordings from older adults performing various activities including 1‑minute lab-based walking trials.
 
-**Source**: [PhysioNet Long-Term Movement Monitoring (LTMM)](https://physionet.org/content/ltmm/1.0.0/)
+## Problem
 
-- 3-axis accelerometer data from 71 older adults
-- Includes **lab-based 1-minute walk trials**
-- Objective: detect **gait events** (heel-strike, toe-off) and assess **stride time variability**
+This project demonstrates how to detect heel-strike events from accelerometer signals, compute stride metrics and compare gait characteristics between fallers and non‑fallers.
 
----
+## Step-by-Step Plan
 
-## 🎯 Problem
+1. Load `.dat` and `.hea` files from the `LabWalks` directory.
+2. Preprocess accelerometer signals (filter magnitude).
+3. Detect heel‑strikes using peak detection.
+4. Calculate stride time.
+5. Compare fallers vs. non‑fallers using stride-time variability.
+6. Plot and print results.
 
-**Goal**:  
-Detect heel-strike events during walking from accelerometer signals, calculate stride time variability, and **compare fallers vs non-fallers** using public data.
-
----
-
-## ✅ Step-by-Step Plan
-
-1. **Load .dat + .hea files** from LabWalks directory  
-2. **Preprocess accelerometer signal** (low-pass filter, magnitude)  
-3. **Detect heel-strikes** using peak detection  
-4. **Calculate stride time**  
-5. **Compare fallers vs non-fallers** using stride time SD  
-6. **Plot and print results**
-
----
-
-## 🧰 Required Python Libraries
+## Required Python Libraries
 
 ```bash
-pip install numpy pandas scipy matplotlib wfdb
+pip install numpy scipy matplotlib wfdb
+```
+
+## Potential Issues
+
+- Raw data files must be downloaded separately from PhysioNet and placed in the expected `LabWalks` folder.
+- The script assumes heel-strikes correspond to negative peaks in the filtered magnitude signal; tuning may be required for other datasets.
+- Records with missing or corrupt channels may cause the loader to fail.
+- Visualization depends on `matplotlib` which may require a display backend when running interactively.
